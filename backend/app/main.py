@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from fastapi import Response
 
 
 app = FastAPI(
@@ -18,6 +19,11 @@ app.mount(
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
     return FileResponse("static/favicon.ico")
+
+
+@app.head("/", include_in_schema=False)
+def home_head():
+    return Response(status_code=200)
 
 
 @app.get("/")
